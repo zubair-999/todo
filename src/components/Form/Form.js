@@ -1,99 +1,61 @@
 import React, {useState} from 'react';
 import 'antd/dist/antd.css';
 import './Form.css'
+import * as Yup from 'yup';
+import { Form, Input, SubmitButton, ResetButton } from 'formik-antd';
+import {Formik} from 'formik'
 
-import { Form, Input, InputNumber, Button } from 'antd';
-const layout = {
-    labelCol: {
-        span: 8,
-    },
-    wrapperCol: {
-        span: 16,
-    },
-};
-/* eslint-disable no-template-curly-in-string */
 
-const validateMessages = {
-    required: '${label} is required!',
-    types: {
-        email: '${label} is not a valid email!',
-        number: '${label} is not a valid number!',
-    },
-    number: {
-        range: '${label} must be between ${min} and ${max}',
-    },
-};
-/* eslint-enable no-template-curly-in-string */
+const FormData = (props, onSubmitProp) => {
+    const formik=({
+        onSubmit : (values, onSubmitProp) => {
+            !props.onEdit ?props.clicked(values): props.onUpdate(values);
+            onSubmitProp.resetForm();
+        },
+        validationSchema: Yup.object({
+             name: Yup.string()
+                 .min(2, "Minimum 2 characters")
+                 .max(15, "Maximum 15 characters")
+                 .required("Required!"),
+             email: Yup.string()
+                 .email("Invalid email format")
+                 .required("Required!"),
+             task: Yup.string()
+                 .required("Required!"),
+             due: Yup.string()
+                 .required("Required!")
+         }),
 
-const FormData = (props) => {
-    const [data, setData]=useState({
-            initialValues:props.onEdit?props.onEdit:{
-                name:"",
-                email:"",
-                task:"",
-                due:""
-            },
-            enableReinitialize:true,
-    }
-    )
-    const onFinish = (values, onSubmitProp) => {
-               !props.onEdit ?props.clicked(values): props.onUpdate(values);
-                onSubmitProp.resetForm();
-    };
+    })
 
+
+    const res = props.onEdit? {...props.onEdit}: {name:'',email:'',task:'',due:''}
+    debugger
     return (
-        <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-            <Form.Item
-                name={['user', 'name']}
-                label="Name"
-                rules={[
-                    {
-                        required: true,
-                    },
-                ]}
-            >
-                <Input />
-            </Form.Item>
-            <Form.Item
-                name={['user', 'email']}
-                label="Email"
-                rules={[
-                    {
-                        type: 'email',
-                        required: true
-                    },
-                ]}
-            >
-                <Input />
-            </Form.Item>
-            <Form.Item
-                name={['user', 'task']}
-                label="Task"
-                rules={[
-                    {
-                        type: 'string',
-                        required: true
-                    },
-                ]}
-            >
-                <Input />
-            </Form.Item>
-            <Form.Item name={['user', 'due']} label="Due"
-                       rules={[
-                           {
-                               type: 'string',
-                               required: true
-                           },
-                       ]}
-            >
-                <Input />
-            </Form.Item>
-            <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                <Button type="primary" htmlType="submit">
-                    Submit
-                </Button>
-            </Form.Item>
-        </Form>
+        <Formik enableReinitialize={true}
+                onSubmit={formik.onSubmit}
+                initialValues={{...res}}
+                render={() => (
+                    <Form>
+                        <Form.Item label='Name' name={'name'} >
+                            <Input name={'name'}/>
+                        </Form.Item>
+                        <Form.Item label='Email' name={'email'} >
+                            <Input name={'email'}/>
+                        </Form.Item>
+                        <Form.Item label='Task' name={'task'} >
+                            <Input name={'task'}/>
+                        </Form.Item>
+                        <Form.Item label='Due' name={'due'} >
+                            <Input name={'due'}/>
+                        </Form.Item>
+                            <SubmitButton>Submit</SubmitButton>
+                    </Form>
+                )
+                }
+        >
+
+        </Formik>
     );
 };
 export default FormData;
@@ -102,9 +64,8 @@ export default FormData;
 // import React from 'react';
 // import {useFormik} from "formik";
 // import * as Yup from 'yup';
-// import './Form.css';
 //
-// const form=(props)=>{
+// const FormData=(props)=>{
 //     // eslint-disable-next-line react-hooks/rules-of-hooks
 //     const formik = useFormik({
 //             initialValues:props.onEdit?props.onEdit:{
@@ -190,4 +151,4 @@ export default FormData;
 //         </div>
 //     );
 // }
-// export default form;
+// export default FormData;

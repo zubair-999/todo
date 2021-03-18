@@ -1,8 +1,8 @@
 // import React, {Component, useEffect, useState} from 'react';
 // import './App.css';
-// import Form from "./components/Form/Form.js";
 // import Table from "./components/Table/Table";
 // import Axios from './Axios';
+// import FormData from "./components/Form/Form.js";
 // const App = () => {
 //     const [change, setChange]=useState(
 //         {
@@ -70,7 +70,7 @@
 //     return(
 //         <div>
 //             <div>
-//                 <Form clicked={onSubmitHandler} onEdit={change.objectEdit} onUpdate={onUpdateHandler}/>
+//                 <FormData clicked={onSubmitHandler} onEdit={change.objectEdit} onUpdate={onUpdateHandler}/>
 //                 <Table users={change.users} clickedDelete={onDeleteHandler} clickedEdit={onEditHandler}/>
 //             </div>
 //         </div>
@@ -81,9 +81,9 @@
 
 import React, {Component} from 'react';
 import './App.css';
-import Form from "./components/Form/Form.js";
 import Table from "./components/Table/Table";
 import Axios from './Axios';
+import FormData from "./components/Form/Form.js";
 
 class App extends Component{
     state={
@@ -146,8 +146,9 @@ class App extends Component{
         console.log(this.state.objectEdit);
         return(
             <div>
+                <h1 style={{textAlign:"center", fontWeight:"bold"}}>TodoApp</h1>
                 <div>
-                    <Form clicked={this.onSubmitHandler} onEdit={this.state.objectEdit} onUpdate={this.onUpdateHandler}/>
+                    <FormData clicked={this.onSubmitHandler} onEdit={this.state.objectEdit} onUpdate={this.onUpdateHandler}/>
                     <Table users={this.state.users} clickedDelete={this.onDeleteHandler} clickedEdit={this.onEditHandler}/>
                 </div>
             </div>

@@ -3,21 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "latest",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
-    "antd": "^4.14.0",
+    "antd": "4.14.0",
     "axios": "^0.21.1",
     "formik": "^2.2.6",
+    "formik-antd": "^2.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.1",
     "web-vitals": "^0.2.4",
-    "yup": "^0.32.8",
-    "antd": "4.14.0",
-    "@ant-design/icons": "latest"
+    "yup": "^0.32.8"
   },
   "scripts": {
     "start": "react-scripts start",

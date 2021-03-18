@@ -4,7 +4,7 @@ import {Button, Table, Tooltip, Popconfirm} from 'antd';
 
 const table=(props)=> {
     return (
-        <Table
+        <Table style={{marginTop:"40px"}}
             columns={[
                 {
                     title: 'Name',
@@ -20,7 +20,11 @@ const table=(props)=> {
                     title: 'Task',
                     dataIndex: 'task',
                     key: 'task',
-                    render: (record) => <span>{record ? record.name : null}</span>,
+                },
+                {
+                    title: 'Due',
+                    dataIndex: 'due',
+                    key: 'due',
                 },
                 {
                     title: 'Action',
@@ -30,12 +34,12 @@ const table=(props)=> {
                         <div style={{display: 'flex'}} className="d-flex">
                             <div style={{marginRight: '10px'}}>
                                 <Popconfirm
-                                    title="Are you sure to Edit this Company?"
+                                    title="Are you sure to Edit this Task?"
                                     okText="Yes"
                                     cancelText="No"
-                                    onConfirm={() => props.onEditHandler(record.id)}
+                                    onConfirm={() => props.clickedEdit(record.id)}
                                 >
-                                    <Tooltip title="Edit Company">
+                                    <Tooltip title="Edit Task">
                                         <Button
                                             className="d-flex justify-content-center align-items-center"
                                             shape="circle"
@@ -45,13 +49,13 @@ const table=(props)=> {
                                 </Popconfirm>
                             </div>
                             <Popconfirm
-                                title="Are you sure to delete this Company?"
+                                title="Are you sure to delete this Task?"
                                 okText="Yes"
                                 cancelText="No"
                                 style={{marginLeft: '30px'}}
-                                onConfirm={() => props.onDeleteHandler(record.id)}
+                                onConfirm={() => props.clickedDelete(record.id)}
                             >
-                                <Tooltip title="Delete Company">
+                                <Tooltip title="Delete Task">
                                     <Button
                                         className="d-flex justify-content-center align-items-center"
                                         shape="circle"
